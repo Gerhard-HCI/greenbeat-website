@@ -1,1 +1,1047 @@
+<!DOCTYPE html>
 
+<html lang="de" data-lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Greenbeat Collective — Klimaneutrale Musikveranstaltungen</title>
+<meta name="description" content="Gemeinnütziger Verein aus Berlin. Wir helfen Festivals, Touren und Clubs, ihren CO₂-Fußabdruck zu messen, zu reduzieren und verbleibende Emissionen fair auszugleichen." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;800&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0d0b;
+    --bg-2: #121410;
+    --surface: #181b16;
+    --line: #2a2e25;
+    --fg: #f2f2ec;
+    --fg-muted: #8e918a;
+    --accent: #c4f000;
+    --accent-dim: #8ba800;
+    --warn: #ff7a59;
+
+```
+--font-display: 'Unbounded', system-ui, sans-serif;
+--font-body: 'Archivo', system-ui, sans-serif;
+--font-mono: 'JetBrains Mono', ui-monospace, monospace;
+```
+
+}
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–bg);
+color: var(–fg);
+font-family: var(–font-body);
+font-size: 17px;
+line-height: 1.55;
+overflow-x: hidden;
+-webkit-font-smoothing: antialiased;
+}
+
+/* ––––– Grain overlay ––––– */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+pointer-events: none;
+opacity: 0.035;
+mix-blend-mode: overlay;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘3’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
+z-index: 1000;
+}
+
+/* ––––– Bilingual visibility ––––– */
+[data-lang=“de”] .en-only { display: none !important; }
+[data-lang=“en”] .de-only { display: none !important; }
+
+/* ––––– Layout ––––– */
+.container {
+max-width: 1280px;
+margin: 0 auto;
+padding: 0 32px;
+}
+@media (max-width: 720px) {
+.container { padding: 0 20px; }
+body { font-size: 16px; }
+}
+
+/* ––––– Navigation ––––– */
+nav.topbar {
+position: sticky;
+top: 0;
+z-index: 100;
+background: rgba(12, 13, 11, 0.78);
+backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
+border-bottom: 1px solid var(–line);
+}
+.nav-row {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 18px 0;
+}
+.logo {
+font-family: var(–font-display);
+font-weight: 800;
+font-size: 19px;
+letter-spacing: -0.02em;
+display: flex;
+align-items: center;
+gap: 2px;
+text-decoration: none;
+color: var(–fg);
+}
+.logo .beat {
+color: var(–accent);
+display: inline-block;
+animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.08); }
+}
+.nav-links {
+display: flex;
+gap: 32px;
+align-items: center;
+}
+.nav-links a {
+color: var(–fg-muted);
+text-decoration: none;
+font-size: 14px;
+font-weight: 500;
+letter-spacing: 0.01em;
+transition: color 0.15s;
+}
+.nav-links a:hover { color: var(–fg); }
+@media (max-width: 880px) {
+.nav-links a:not(.btn):not(.lang-toggle) { display: none; }
+}
+
+.lang-toggle {
+display: inline-flex;
+gap: 0;
+border: 1px solid var(–line);
+border-radius: 100px;
+padding: 2px;
+font-family: var(–font-mono);
+font-size: 12px;
+}
+.lang-toggle button {
+background: transparent;
+border: none;
+color: var(–fg-muted);
+padding: 4px 12px;
+border-radius: 100px;
+cursor: pointer;
+font-family: inherit;
+font-size: inherit;
+letter-spacing: 0.05em;
+transition: all 0.15s;
+}
+.lang-toggle button.active {
+background: var(–accent);
+color: var(–bg);
+font-weight: 500;
+}
+
+/* ––––– Buttons ––––– */
+.btn {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 14px 22px;
+border-radius: 4px;
+font-family: var(–font-body);
+font-size: 14px;
+font-weight: 600;
+letter-spacing: 0.02em;
+text-decoration: none;
+transition: all 0.15s;
+border: 1px solid transparent;
+cursor: pointer;
+}
+.btn-primary {
+background: var(–accent);
+color: var(–bg);
+}
+.btn-primary:hover {
+background: #d5ff2e;
+transform: translateY(-1px);
+}
+.btn-ghost {
+color: var(–fg);
+border-color: var(–line);
+background: transparent;
+}
+.btn-ghost:hover {
+border-color: var(–fg-muted);
+background: rgba(255,255,255,0.02);
+}
+.btn-sm { padding: 9px 16px; font-size: 13px; }
+
+/* ––––– Hero ––––– */
+.hero {
+position: relative;
+padding: 120px 0 100px;
+overflow: hidden;
+}
+.hero::before {
+content: ‘’;
+position: absolute;
+top: 20%;
+right: -10%;
+width: 600px;
+height: 600px;
+background: radial-gradient(circle, rgba(196, 240, 0, 0.08), transparent 70%);
+pointer-events: none;
+z-index: 0;
+}
+.hero-inner { position: relative; z-index: 1; }
+.eyebrow {
+font-family: var(–font-mono);
+font-size: 12px;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–accent);
+margin-bottom: 24px;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+.eyebrow::before {
+content: ‘’;
+display: inline-block;
+width: 6px;
+height: 6px;
+background: var(–accent);
+border-radius: 50%;
+animation: pulse 1.2s ease-in-out infinite;
+}
+h1.hero-headline {
+font-family: var(–font-display);
+font-weight: 700;
+font-size: clamp(40px, 7vw, 92px);
+line-height: 0.98;
+letter-spacing: -0.035em;
+margin-bottom: 28px;
+max-width: 17ch;
+}
+h1.hero-headline em {
+font-style: normal;
+color: var(–accent);
+}
+.hero-sub {
+font-size: clamp(16px, 1.5vw, 19px);
+color: var(–fg-muted);
+max-width: 56ch;
+margin-bottom: 40px;
+line-height: 1.5;
+}
+.hero-cta {
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+}
+
+.hero-data {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 40px;
+margin-top: 88px;
+padding-top: 40px;
+border-top: 1px solid var(–line);
+}
+.data-cell .num {
+font-family: var(–font-display);
+font-size: clamp(32px, 4vw, 48px);
+font-weight: 500;
+letter-spacing: -0.03em;
+color: var(–fg);
+line-height: 1;
+margin-bottom: 8px;
+}
+.data-cell .label {
+font-family: var(–font-mono);
+font-size: 11px;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–fg-muted);
+}
+
+/* ––––– Ticker ––––– */
+.ticker {
+border-top: 1px solid var(–line);
+border-bottom: 1px solid var(–line);
+overflow: hidden;
+padding: 22px 0;
+background: var(–bg-2);
+}
+.ticker-track {
+display: flex;
+gap: 48px;
+white-space: nowrap;
+animation: scroll 40s linear infinite;
+font-family: var(–font-display);
+font-weight: 500;
+font-size: 22px;
+letter-spacing: -0.02em;
+}
+.ticker-track span {
+display: inline-flex;
+align-items: center;
+gap: 48px;
+}
+.ticker-track .dot {
+color: var(–accent);
+font-size: 14px;
+}
+@keyframes scroll {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+
+/* ––––– Section shell ––––– */
+section.sect {
+padding: 120px 0;
+position: relative;
+}
+@media (max-width: 720px) {
+section.sect { padding: 80px 0; }
+.hero { padding: 80px 0 60px; }
+}
+
+.sect-head {
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+flex-wrap: wrap;
+gap: 24px;
+margin-bottom: 72px;
+}
+.sect-title {
+font-family: var(–font-display);
+font-size: clamp(32px, 4.5vw, 56px);
+font-weight: 600;
+letter-spacing: -0.03em;
+line-height: 1;
+max-width: 20ch;
+}
+.sect-kicker {
+font-family: var(–font-mono);
+font-size: 12px;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–fg-muted);
+margin-bottom: 16px;
+}
+.sect-lede {
+font-size: 16px;
+color: var(–fg-muted);
+max-width: 44ch;
+}
+
+/* ––––– Process ––––– */
+.process-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1px;
+background: var(–line);
+border: 1px solid var(–line);
+}
+@media (max-width: 860px) {
+.process-grid { grid-template-columns: 1fr; }
+}
+.step {
+background: var(–bg);
+padding: 40px 32px 48px;
+position: relative;
+transition: background 0.25s;
+}
+.step:hover { background: var(–bg-2); }
+.step-num {
+font-family: var(–font-display);
+font-size: 15px;
+font-weight: 500;
+color: var(–accent);
+letter-spacing: 0;
+margin-bottom: 56px;
+display: block;
+}
+.step-name {
+font-family: var(–font-display);
+font-size: 28px;
+font-weight: 600;
+letter-spacing: -0.02em;
+margin-bottom: 16px;
+}
+.step-body {
+color: var(–fg-muted);
+font-size: 15.5px;
+line-height: 1.55;
+margin-bottom: 28px;
+}
+.step-meta {
+font-family: var(–font-mono);
+font-size: 11px;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–fg-muted);
+padding-top: 20px;
+border-top: 1px solid var(–line);
+}
+.step-meta span { color: var(–fg); }
+
+/* ––––– Audiences ––––– */
+.aud-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 16px;
+}
+@media (max-width: 960px) { .aud-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .aud-grid { grid-template-columns: 1fr; } }
+
+.aud {
+border: 1px solid var(–line);
+padding: 28px 24px;
+border-radius: 4px;
+background: var(–bg-2);
+transition: all 0.2s;
+display: flex;
+flex-direction: column;
+gap: 12px;
+min-height: 200px;
+}
+.aud:hover {
+border-color: var(–accent-dim);
+transform: translateY(-2px);
+}
+.aud-icon {
+width: 28px;
+height: 28px;
+color: var(–accent);
+margin-bottom: 8px;
+}
+.aud-name {
+font-family: var(–font-display);
+font-weight: 600;
+font-size: 19px;
+letter-spacing: -0.015em;
+}
+.aud-desc {
+font-size: 14px;
+color: var(–fg-muted);
+line-height: 1.5;
+margin-top: auto;
+}
+
+/* ––––– Methodology ––––– */
+.meth {
+background: var(–bg-2);
+border-top: 1px solid var(–line);
+border-bottom: 1px solid var(–line);
+}
+.meth-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 80px;
+align-items: start;
+}
+@media (max-width: 860px) { .meth-grid { grid-template-columns: 1fr; gap: 40px; } }
+.meth-sources {
+display: flex;
+flex-direction: column;
+gap: 0;
+border: 1px solid var(–line);
+border-radius: 4px;
+overflow: hidden;
+}
+.source-row {
+display: grid;
+grid-template-columns: auto 1fr auto;
+gap: 20px;
+padding: 18px 22px;
+border-bottom: 1px solid var(–line);
+align-items: center;
+font-family: var(–font-mono);
+font-size: 13px;
+}
+.source-row:last-child { border-bottom: none; }
+.source-row .code {
+color: var(–accent);
+font-weight: 500;
+letter-spacing: 0.02em;
+min-width: 72px;
+}
+.source-row .desc { color: var(–fg); }
+.source-row .ver {
+color: var(–fg-muted);
+font-size: 11px;
+letter-spacing: 0.05em;
+}
+
+/* ––––– About ––––– */
+.about-grid {
+display: grid;
+grid-template-columns: 1fr 1.2fr;
+gap: 80px;
+align-items: start;
+}
+@media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.about-title {
+font-family: var(–font-display);
+font-size: clamp(32px, 4vw, 48px);
+font-weight: 600;
+letter-spacing: -0.03em;
+line-height: 1.05;
+}
+.about-body p {
+color: var(–fg);
+font-size: 17px;
+line-height: 1.6;
+margin-bottom: 20px;
+max-width: 58ch;
+}
+.about-body p.muted { color: var(–fg-muted); font-size: 15.5px; }
+
+/* ––––– CTA band ––––– */
+.cta-band {
+border-top: 1px solid var(–line);
+background: linear-gradient(180deg, var(–bg), var(–bg-2));
+}
+.cta-inner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 40px;
+flex-wrap: wrap;
+padding: 72px 0;
+}
+.cta-text {
+font-family: var(–font-display);
+font-size: clamp(28px, 3.5vw, 44px);
+font-weight: 600;
+letter-spacing: -0.03em;
+line-height: 1.05;
+max-width: 22ch;
+}
+
+/* ––––– Footer ––––– */
+footer {
+border-top: 1px solid var(–line);
+padding: 56px 0 28px;
+background: var(–bg);
+}
+.foot-grid {
+display: grid;
+grid-template-columns: 2fr 1fr 1fr 1fr;
+gap: 48px;
+margin-bottom: 48px;
+}
+@media (max-width: 720px) {
+.foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+.foot-col h5 {
+font-family: var(–font-mono);
+font-size: 11px;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–fg-muted);
+margin-bottom: 18px;
+font-weight: 500;
+}
+.foot-col a {
+display: block;
+color: var(–fg);
+text-decoration: none;
+font-size: 14px;
+padding: 4px 0;
+transition: color 0.15s;
+}
+.foot-col a:hover { color: var(–accent); }
+.foot-bio {
+color: var(–fg-muted);
+font-size: 14px;
+line-height: 1.5;
+max-width: 36ch;
+}
+.foot-bottom {
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 20px;
+padding-top: 28px;
+border-top: 1px solid var(–line);
+font-family: var(–font-mono);
+font-size: 11px;
+letter-spacing: 0.08em;
+color: var(–fg-muted);
+text-transform: uppercase;
+}
+
+/* ––––– Reveal animation ––––– */
+.reveal {
+opacity: 0;
+transform: translateY(24px);
+transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.shown {
+opacity: 1;
+transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+.reveal { opacity: 1; transform: none; transition: none; }
+.logo .beat, .eyebrow::before, .ticker-track { animation: none; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+
+<nav class="topbar">
+  <div class="container nav-row">
+    <a href="#" class="logo" aria-label="Greenbeat Collective home">
+      Greenbeat<span class="beat">•</span>Collective
+    </a>
+    <div class="nav-links">
+      <a href="#process" class="de-only">Ansatz</a>
+      <a href="#process" class="en-only">Approach</a>
+      <a href="#who" class="de-only">Für wen</a>
+      <a href="#who" class="en-only">Who we help</a>
+      <a href="#methodology" class="de-only">Methodik</a>
+      <a href="#methodology" class="en-only">Methodology</a>
+      <a href="#about" class="de-only">Verein</a>
+      <a href="#about" class="en-only">About</a>
+
+```
+  <div class="lang-toggle" role="group" aria-label="Sprache">
+    <button data-set-lang="de" class="active">DE</button>
+    <button data-set-lang="en">EN</button>
+  </div>
+
+  <a href="#calculator" class="btn btn-primary btn-sm de-only">Messung starten</a>
+  <a href="#calculator" class="btn btn-primary btn-sm en-only">Start measuring</a>
+</div>
+```
+
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="eyebrow">
+      <span class="de-only">Gemeinnütziger Verein · Berlin</span>
+      <span class="en-only">Non-profit association · Berlin</span>
+    </div>
+
+```
+<h1 class="hero-headline de-only">
+  Klimaneutrale Musik&shy;veranstaltungen. Ohne Kompromisse beim <em>Sound</em>.
+</h1>
+<h1 class="hero-headline en-only">
+  Climate-neutral music events. No compromise on the <em>sound</em>.
+</h1>
+
+<p class="hero-sub de-only">
+  Wir helfen Festivals, Touren und Clubs, ihren CO₂-Fußabdruck zu messen, zu reduzieren und verbleibende Emissionen fair auszugleichen. Transparent, wissenschaftlich fundiert, auf die Musikbranche zugeschnitten.
+</p>
+<p class="hero-sub en-only">
+  We help festivals, tours and clubs measure their carbon footprint, reduce it where possible, and fairly offset what remains. Transparent, science-based, built for the music industry.
+</p>
+
+<div class="hero-cta">
+  <a href="#calculator" class="btn btn-primary de-only">Messung starten →</a>
+  <a href="#calculator" class="btn btn-primary en-only">Start measuring →</a>
+  <a href="#process" class="btn btn-ghost de-only">Wie es funktioniert</a>
+  <a href="#process" class="btn btn-ghost en-only">How it works</a>
+</div>
+
+<div class="hero-data">
+  <div class="data-cell">
+    <div class="num">42%</div>
+    <div class="label de-only">Ø Anreise-Anteil am Fußabdruck</div>
+    <div class="label en-only">Avg. travel share of footprint</div>
+  </div>
+  <div class="data-cell">
+    <div class="num">0€</div>
+    <div class="label de-only">Calculator für Mitglieder</div>
+    <div class="label en-only">Calculator for members</div>
+  </div>
+  <div class="data-cell">
+    <div class="num">DE · UK · NL</div>
+    <div class="label de-only">Aktive Regionen</div>
+    <div class="label en-only">Active regions</div>
+  </div>
+  <div class="data-cell">
+    <div class="num">GHG · VDR</div>
+    <div class="label de-only">Methodik-Standards</div>
+    <div class="label en-only">Methodology standards</div>
+  </div>
+</div>
+```
+
+  </div>
+</header>
+
+<!-- ============ TICKER ============ -->
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="de-only">
+      MESSEN <span class="dot">●</span> REDUZIEREN <span class="dot">●</span> AUSGLEICHEN <span class="dot">●</span>
+      MESSEN <span class="dot">●</span> REDUZIEREN <span class="dot">●</span> AUSGLEICHEN <span class="dot">●</span>
+      MESSEN <span class="dot">●</span> REDUZIEREN <span class="dot">●</span> AUSGLEICHEN <span class="dot">●</span>
+      MESSEN <span class="dot">●</span> REDUZIEREN <span class="dot">●</span> AUSGLEICHEN <span class="dot">●</span>
+    </span>
+    <span class="en-only">
+      MEASURE <span class="dot">●</span> REDUCE <span class="dot">●</span> OFFSET <span class="dot">●</span>
+      MEASURE <span class="dot">●</span> REDUCE <span class="dot">●</span> OFFSET <span class="dot">●</span>
+      MEASURE <span class="dot">●</span> REDUCE <span class="dot">●</span> OFFSET <span class="dot">●</span>
+      MEASURE <span class="dot">●</span> REDUCE <span class="dot">●</span> OFFSET <span class="dot">●</span>
+    </span>
+  </div>
+</div>
+
+<!-- ============ PROCESS ============ -->
+
+<section class="sect" id="process">
+  <div class="container">
+    <div class="sect-head reveal">
+      <div>
+        <div class="sect-kicker de-only">Unser Ansatz</div>
+        <div class="sect-kicker en-only">Our approach</div>
+        <h2 class="sect-title de-only">Drei Schritte zur Klimaverantwortung.</h2>
+        <h2 class="sect-title en-only">Three steps to climate responsibility.</h2>
+      </div>
+      <p class="sect-lede de-only">
+        Keine Greenwashing-Abkürzungen. Reduktion vor Kompensation, belastbare Daten, faire Ausgleichs&shy;projekte.
+      </p>
+      <p class="sect-lede en-only">
+        No greenwashing shortcuts. Reduction before compensation, robust data, fair offset projects.
+      </p>
+    </div>
+
+```
+<div class="process-grid reveal">
+  <div class="step">
+    <span class="step-num">01 ⟶</span>
+    <h3 class="step-name de-only">Messen</h3>
+    <h3 class="step-name en-only">Measure</h3>
+    <p class="step-body de-only">
+      Mit unserem kostenlosen Calculator erfasst ihr alle Emissionsquellen eures Events: Anreise, Energie, Catering, Unterkünfte, Materialien, Logistik. Transparent und nachvollziehbar bis zur letzten Tonne.
+    </p>
+    <p class="step-body en-only">
+      Our free calculator captures every emission source for your event: travel, energy, catering, accommodation, materials, logistics. Transparent and auditable down to the last tonne.
+    </p>
+    <div class="step-meta de-only">Dauer · <span>2–4 Stunden</span></div>
+    <div class="step-meta en-only">Time · <span>2–4 hours</span></div>
+  </div>
+
+  <div class="step">
+    <span class="step-num">02 ⟶</span>
+    <h3 class="step-name de-only">Reduzieren</h3>
+    <h3 class="step-name en-only">Reduce</h3>
+    <p class="step-body de-only">
+      Wir identifizieren gemeinsam die größten Stellschrauben und entwickeln einen konkreten Reduktionsplan. Keine Allgemeinplätze — maßgeschneiderte Maßnahmen, die zu eurem Event und Budget passen.
+    </p>
+    <p class="step-body en-only">
+      Together we identify the biggest levers and build a concrete reduction plan. No generic advice — tailored measures that fit your event and budget.
+    </p>
+    <div class="step-meta de-only">Beratung · <span>2–6 Wochen</span></div>
+    <div class="step-meta en-only">Consulting · <span>2–6 weeks</span></div>
+  </div>
+
+  <div class="step">
+    <span class="step-num">03 ⟶</span>
+    <h3 class="step-name de-only">Ausgleichen</h3>
+    <h3 class="step-name en-only">Offset</h3>
+    <p class="step-body de-only">
+      Was ihr nicht vermeiden könnt, gleicht ihr fair aus — über zertifizierte Projekte oder als freiwilligen Klimabeitrag auf den Ticketpreis. Volle Transparenz über Herkunft und Wirkung jeder Gutschrift.
+    </p>
+    <p class="step-body en-only">
+      What you can't avoid, you offset fairly — through certified projects or as a voluntary climate contribution on ticket prices. Full transparency on the origin and impact of every credit.
+    </p>
+    <div class="step-meta de-only">Nach dem Event · <span>fortlaufend</span></div>
+    <div class="step-meta en-only">Post-event · <span>ongoing</span></div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ============ WHO ============ -->
+
+<section class="sect" id="who" style="padding-top: 40px;">
+  <div class="container">
+    <div class="sect-head reveal">
+      <div>
+        <div class="sect-kicker de-only">Für wen</div>
+        <div class="sect-kicker en-only">Who we help</div>
+        <h2 class="sect-title de-only">Gebaut für die Live-Musik-Szene.</h2>
+        <h2 class="sect-title en-only">Built for the live music scene.</h2>
+      </div>
+    </div>
+
+```
+<div class="aud-grid reveal">
+  <div class="aud">
+    <svg class="aud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 20h18M5 20V9l7-5 7 5v11M9 20v-6h6v6"/></svg>
+    <div class="aud-name de-only">Festivals</div>
+    <div class="aud-name en-only">Festivals</div>
+    <div class="aud-desc de-only">Von 1.000 bis 100.000 Besucher*innen. Outdoor, camping, multi-day.</div>
+    <div class="aud-desc en-only">From 1,000 to 100,000 attendees. Outdoor, camping, multi-day.</div>
+  </div>
+  <div class="aud">
+    <svg class="aud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/><path d="M4 17V6l16-2v13M4 10l16-2"/></svg>
+    <div class="aud-name de-only">Touren & Künstler*innen</div>
+    <div class="aud-name en-only">Tours & Artists</div>
+    <div class="aud-desc de-only">Nightliner, Crew, Fracht, Hotels. Pro Show und pro Tour.</div>
+    <div class="aud-desc en-only">Nightliners, crew, freight, hotels. Per show and per tour.</div>
+  </div>
+  <div class="aud">
+    <svg class="aud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 21V7l8-4 8 4v14M4 21h16M9 21v-6h6v6M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg>
+    <div class="aud-name de-only">Clubs</div>
+    <div class="aud-name en-only">Clubs</div>
+    <div class="aud-desc de-only">Jahresbetrieb statt Einzelevent. Strom, Heizung, Gäste-Anreise.</div>
+    <div class="aud-desc en-only">Year-round operation, not single events. Power, heating, audience travel.</div>
+  </div>
+  <div class="aud">
+    <svg class="aud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+    <div class="aud-name de-only">Event-Agenturen</div>
+    <div class="aud-name en-only">Event agencies</div>
+    <div class="aud-desc de-only">Portfolio-Reporting über Projekte und Kund*innen hinweg.</div>
+    <div class="aud-desc en-only">Portfolio reporting across projects and clients.</div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ============ METHODOLOGY ============ -->
+
+<section class="sect meth" id="methodology">
+  <div class="container">
+    <div class="meth-grid">
+      <div class="reveal">
+        <div class="sect-kicker de-only">Methodik</div>
+        <div class="sect-kicker en-only">Methodology</div>
+        <h2 class="sect-title de-only" style="margin-bottom: 28px;">
+          Jede Zahl hat eine Quelle.
+        </h2>
+        <h2 class="sect-title en-only" style="margin-bottom: 28px;">
+          Every number has a source.
+        </h2>
+        <p style="color: var(--fg); line-height: 1.6; margin-bottom: 20px;" class="de-only">
+          Wir verwenden ausschließlich öffentlich zugängliche, wissenschaftlich geprüfte Emissionsfaktoren. Jede Berechnung ist auf den Faktor, die Quelle und das Veröffentlichungsjahr zurückverfolgbar.
+        </p>
+        <p style="color: var(--fg); line-height: 1.6; margin-bottom: 20px;" class="en-only">
+          We use only publicly available, peer-reviewed emission factors. Every calculation traces back to the factor, source, and publication year.
+        </p>
+        <p style="color: var(--fg-muted); font-size: 15px;" class="de-only">
+          Konform mit GHG Protocol und VDR-Standard für Geschäftsreisen. Ausgerichtet an den Methodologien von Julie's Bicycle für den Kreativsektor.
+        </p>
+        <p style="color: var(--fg-muted); font-size: 15px;" class="en-only">
+          Compliant with the GHG Protocol and the VDR business-travel standard. Aligned with Julie's Bicycle methodology for the creative sector.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="meth-sources">
+          <div class="source-row">
+            <span class="code">UBA</span>
+            <span class="desc de-only">Deutsche Strommix-Emissionsfaktoren</span>
+            <span class="desc en-only">German grid electricity factors</span>
+            <span class="ver">2025</span>
+          </div>
+          <div class="source-row">
+            <span class="code">DEFRA</span>
+            <span class="desc de-only">GHG Conversion Factors — UK Government</span>
+            <span class="desc en-only">GHG Conversion Factors — UK Government</span>
+            <span class="ver">v2025</span>
+          </div>
+          <div class="source-row">
+            <span class="code">ADEME</span>
+            <span class="desc de-only">Base Empreinte & Agribalyse (Lebensmittel)</span>
+            <span class="desc en-only">Base Empreinte &amp; Agribalyse (food)</span>
+            <span class="ver">V23.6</span>
+          </div>
+          <div class="source-row">
+            <span class="code">IGES</span>
+            <span class="desc de-only">Globale Strom-Emissionsfaktoren</span>
+            <span class="desc en-only">Global grid emission factors</span>
+            <span class="ver">v11.7</span>
+          </div>
+          <div class="source-row">
+            <span class="code">IPCC</span>
+            <span class="desc de-only">Emission Factor Database</span>
+            <span class="desc en-only">Emission Factor Database</span>
+            <span class="ver">AR5/AR6</span>
+          </div>
+          <div class="source-row">
+            <span class="code">VDR</span>
+            <span class="desc de-only">Standard für Geschäftsreisen &amp; MICE</span>
+            <span class="desc en-only">Business travel &amp; MICE standard</span>
+            <span class="ver">v1.3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+
+<section class="sect" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="sect-kicker de-only">Über den Verein</div>
+        <div class="sect-kicker en-only">About the Verein</div>
+        <h2 class="about-title de-only">
+          Aus der Szene.<br>Für die Szene.
+        </h2>
+        <h2 class="about-title en-only">
+          From the scene.<br>For the scene.
+        </h2>
+      </div>
+      <div class="about-body reveal">
+        <p class="de-only">
+          <strong>Greenbeat Collective e.V.</strong> ist ein gemeinnütziger Verein mit Sitz in Berlin. Wir verbinden Musikbranche und Klimaforschung, um die Live-Music-Welt auf einen Pfad echter Klimaverantwortung zu bringen — ohne bürokratischen Ballast, ohne Greenwashing-Versprechen.
+        </p>
+        <p class="en-only">
+          <strong>Greenbeat Collective e.V.</strong> is a registered non-profit association based in Berlin. We connect the music industry with climate science to put live music on a path to genuine climate responsibility — without bureaucratic ballast, without greenwashing promises.
+        </p>
+        <p class="muted de-only">
+          Wir sind unabhängig finanziert durch Fördermittel, Mitgliedsbeiträge und projektbezogene Beratung. Den CO₂-Calculator stellen wir der Szene kostenlos zur Verfügung. Kompensationskäufe laufen über unseren Partner <a href="#" style="color: var(--accent);">eGreen</a> — vollständig transparent offengelegt.
+        </p>
+        <p class="muted en-only">
+          We are independently funded through public grants, membership fees and project-based consulting. The CO₂ calculator is free to use for the scene. Offset purchases run through our partner <a href="#" style="color: var(--accent);">eGreen</a> — with the relationship fully disclosed.
+        </p>
+        <div style="display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap;">
+          <a href="#" class="btn btn-ghost btn-sm de-only">Satzung (PDF)</a>
+          <a href="#" class="btn btn-ghost btn-sm en-only">Statutes (PDF)</a>
+          <a href="#" class="btn btn-ghost btn-sm de-only">Vorstand</a>
+          <a href="#" class="btn btn-ghost btn-sm en-only">Board</a>
+          <a href="#" class="btn btn-ghost btn-sm de-only">Mitglied werden</a>
+          <a href="#" class="btn btn-ghost btn-sm en-only">Become a member</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BAND ============ -->
+
+<section class="cta-band" id="calculator">
+  <div class="container cta-inner">
+    <div class="cta-text de-only">Bereit, den Fußabdruck eures Events zu kennen?</div>
+    <div class="cta-text en-only">Ready to know your event's footprint?</div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <a href="#" class="btn btn-primary de-only">Calculator öffnen →</a>
+      <a href="#" class="btn btn-primary en-only">Open calculator →</a>
+      <a href="mailto:hello@greenbeat.collective" class="btn btn-ghost de-only">Gespräch buchen</a>
+      <a href="mailto:hello@greenbeat.collective" class="btn btn-ghost en-only">Book a call</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="#" class="logo" style="margin-bottom: 16px; display: inline-flex;">
+          Greenbeat<span class="beat">•</span>Collective
+        </a>
+        <p class="foot-bio de-only">
+          Gemeinnütziger Verein aus Berlin. Wir machen Musikveranstaltungen klimaverantwortlich — von Kreuzberg bis Amsterdam, von Bristol bis Eindhoven.
+        </p>
+        <p class="foot-bio en-only">
+          Non-profit association from Berlin. We make music events climate-responsible — from Kreuzberg to Amsterdam, from Bristol to Eindhoven.
+        </p>
+      </div>
+      <div class="foot-col">
+        <h5 class="de-only">Verein</h5>
+        <h5 class="en-only">Verein</h5>
+        <a href="#about" class="de-only">Über uns</a>
+        <a href="#about" class="en-only">About</a>
+        <a href="#" class="de-only">Vorstand</a>
+        <a href="#" class="en-only">Board</a>
+        <a href="#" class="de-only">Satzung</a>
+        <a href="#" class="en-only">Statutes</a>
+        <a href="#" class="de-only">Mitglied werden</a>
+        <a href="#" class="en-only">Become a member</a>
+      </div>
+      <div class="foot-col">
+        <h5 class="de-only">Ressourcen</h5>
+        <h5 class="en-only">Resources</h5>
+        <a href="#" class="de-only">CO₂-Calculator</a>
+        <a href="#" class="en-only">CO₂ Calculator</a>
+        <a href="#" class="de-only">Methodik-Paper</a>
+        <a href="#" class="en-only">Methodology paper</a>
+        <a href="#" class="de-only">Benchmarks</a>
+        <a href="#" class="en-only">Benchmarks</a>
+        <a href="#" class="de-only">Presse</a>
+        <a href="#" class="en-only">Press</a>
+      </div>
+      <div class="foot-col">
+        <h5 class="de-only">Rechtliches</h5>
+        <h5 class="en-only">Legal</h5>
+        <a href="#" class="de-only">Impressum</a>
+        <a href="#" class="en-only">Imprint</a>
+        <a href="#" class="de-only">Datenschutz</a>
+        <a href="#" class="en-only">Privacy</a>
+        <a href="#" class="de-only">Kontakt</a>
+        <a href="#" class="en-only">Contact</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 GREENBEAT COLLECTIVE E.V.</div>
+      <div class="de-only">VEREINSREGISTER: VR XXXXX · BERLIN · GEMEINNÜTZIG</div>
+      <div class="en-only">REG: VR XXXXX · BERLIN · CHARITABLE STATUS</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Language toggle
+  const buttons = document.querySelectorAll('.lang-toggle button');
+  const html = document.documentElement;
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.setLang;
+      html.setAttribute('data-lang', lang);
+      html.setAttribute('lang', lang);
+      buttons.forEach(b => b.classList.toggle('active', b.dataset.setLang === lang));
+    });
+  });
+
+  // Intersection reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('shown');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => io.observe(r));
+</script>
+
+</body>
+</html>
